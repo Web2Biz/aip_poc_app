@@ -49,12 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
       SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     }
-    return const SplashScreen();
+    return const Scaffold(
+      body: SafeArea(
+        child: SplashScreen(),
+      ),
+    );
   }
 
   // Splash Screen Off After 2 seconds
   _splashScreenOff() {
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => const Login(),

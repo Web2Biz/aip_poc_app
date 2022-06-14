@@ -1,5 +1,6 @@
 import 'package:aip_poc/config/app_color_constants.dart';
 import 'package:aip_poc/config/app_font_constants.dart';
+import 'package:aip_poc/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,105 +44,113 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            // SvgPicture.asset('assets/svg-icons/login-bg.svg'),
-            _buildTopBanner(context),
-            Container(
-              padding: const EdgeInsets.only(
-                left: 36.0,
-                top: 64.0,
-                right: 36.0,
-                bottom: 32.0,
-              ),
-              child: Form(
-                key: _formKey,
-                autovalidateMode: _autovalidateMode,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _buildEmailTextField(),
-                    const SizedBox(height: 20.0),
-                    _buildPasswordField(),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    _buildForgetPass(),
-                    const SizedBox(height: 20.0),
-                    _buildErrorMssg(context),
-                    Visibility(
-                      visible: _loginErrorStatus,
-                      child: const SizedBox(height: 20.0),
-                    ),
-                    _buildLoginBtn(context),
-                    // dont have account title?
-                    Container(
-                      padding: const EdgeInsets.only(
-                        top: 16.0,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // SvgPicture.asset('assets/svg-icons/login-bg.svg'),
+              _buildTopBanner(context),
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 36.0,
+                  top: 64.0,
+                  right: 36.0,
+                  bottom: 32.0,
+                ),
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: _autovalidateMode,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _buildEmailTextField(),
+                      const SizedBox(height: 20.0),
+                      _buildPasswordField(),
+                      const SizedBox(
+                        height: 8.0,
                       ),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          "Don't have an account ? Please Contact",
-                          style: TextStyle(
-                            color: AppColorConstants.primaryColor,
-                            fontFamily: AppFontConstants.nunitaSans,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.0,
+                      _buildForgetPass(),
+                      const SizedBox(height: 20.0),
+                      _buildErrorMssg(context),
+                      Visibility(
+                        visible: _loginErrorStatus,
+                        child: const SizedBox(height: 20.0),
+                      ),
+                      _buildLoginBtn(context),
+                      // dont have account title?
+                      Container(
+                        padding: const EdgeInsets.only(
+                          top: 16.0,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "Don't have an account ? Please Contact",
+                            style: TextStyle(
+                              color: AppColorConstants.primaryColor,
+                              fontFamily: AppFontConstants.nunitaSans,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    // Contact number
-                    Container(
-                      padding: const EdgeInsets.only(
-                        top: 8.0,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          "A Pattern Medical Clinic (423) 455-2711",
-                          style: TextStyle(
-                            color: AppColorConstants.primaryColor,
-                            fontFamily: AppFontConstants.nunitaSans,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14.0,
+                      // Contact number
+                      Container(
+                        padding: const EdgeInsets.only(
+                          top: 8.0,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "A Pattern Medical Clinic (423) 455-2711",
+                            style: TextStyle(
+                              color: AppColorConstants.primaryColor,
+                              fontFamily: AppFontConstants.nunitaSans,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
+  // Login button
   ElevatedButton _buildLoginBtn(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        setState(() {
-          _loginErrorStatus = false;
-        });
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (BuildContext context) => const Home(),
+          ),
+        );
+        // setState(() {
+        //   _loginErrorStatus = false;
+        // });
 
-        if (_formKey.currentState!.validate()) {
-          // setState(() {
-          //   _isLoading = true;
-          // });
-          // text editor focus remove with hide keyboard
-          FocusScope.of(context).requestFocus(FocusNode());
-          // loginAction();
-        } else {
-          setState(() {
-            _autovalidateMode = AutovalidateMode.onUserInteraction;
-          });
-        }
+        // if (_formKey.currentState!.validate()) {
+        //   // setState(() {
+        //   //   _isLoading = true;
+        //   // });
+        //   // text editor focus remove with hide keyboard
+        //   FocusScope.of(context).requestFocus(FocusNode());
+        //   // loginAction();
+        // } else {
+        //   setState(() {
+        //     _autovalidateMode = AutovalidateMode.onUserInteraction;
+        //   });
+        // }
       },
       style: ButtonStyle(
         backgroundColor:
@@ -392,12 +401,12 @@ class _LoginState extends State<Login> {
   Container _buildTopBanner(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: MediaQuery.of(context).size.height / 2.5,
+      height: MediaQuery.of(context).size.height / 3.0,
       width: MediaQuery.of(context).size.width,
       child: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 2.5,
+            height: MediaQuery.of(context).size.height / 3.0,
             decoration: BoxDecoration(
               color: AppColorConstants.primaryColor,
               // Transparent Image
