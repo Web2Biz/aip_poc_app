@@ -130,27 +130,19 @@ class _LoginState extends State<Login> {
   ElevatedButton _buildLoginBtn(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (BuildContext context) => const Home(),
-          ),
-        );
-        // setState(() {
-        //   _loginErrorStatus = false;
-        // });
+        setState(() {
+          _loginErrorStatus = false;
+        });
 
-        // if (_formKey.currentState!.validate()) {
-        //   // setState(() {
-        //   //   _isLoading = true;
-        //   // });
-        //   // text editor focus remove with hide keyboard
-        //   FocusScope.of(context).requestFocus(FocusNode());
-        //   // loginAction();
-        // } else {
-        //   setState(() {
-        //     _autovalidateMode = AutovalidateMode.onUserInteraction;
-        //   });
-        // }
+        if (_formKey.currentState!.validate()) {
+          // text editor focus remove with hide keyboard
+          FocusScope.of(context).requestFocus(FocusNode());
+          _loginAction();
+        } else {
+          setState(() {
+            _autovalidateMode = AutovalidateMode.onUserInteraction;
+          });
+        }
       },
       style: ButtonStyle(
         backgroundColor:
@@ -440,5 +432,24 @@ class _LoginState extends State<Login> {
       // ),
       // child: SvgPicture.asset('assets/svg-icons/launcher.svg'),
     );
+  }
+
+  // Login action
+  _loginAction() {
+    var email = (_emailController.text.trim()).toLowerCase();
+    var password = _passwordController.text.trim();
+    if (email == "demo@example.com" && password == "demo") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => const Home(),
+        ),
+      );
+    } else {
+      _passwordController.clear();
+      setState(() {
+        _loginErrorStatus = true;
+        _autovalidateMode = AutovalidateMode.disabled;
+      });
+    }
   }
 }
