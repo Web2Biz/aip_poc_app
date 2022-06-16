@@ -1,6 +1,6 @@
 import 'package:aip_poc/config/app_color_constants.dart';
 import 'package:aip_poc/config/app_font_constants.dart';
-import 'package:aip_poc/screens/patient_details.dart';
+import 'package:aip_poc/screens/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,13 +39,23 @@ class _HomeState extends State<Home> {
       backgroundColor: AppColorConstants.primaryLightColor,
       appBar: AppBar(
         backgroundColor: AppColorConstants.primaryColor,
-        automaticallyImplyLeading: false,
-        title: const Center(
-          child: Image(
-            width: 44.0,
-            height: 24.0,
-            image: AssetImage("assets/images/logo.png"),
+        // automaticallyImplyLeading: false,
+        title: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: const Padding(
+            padding: EdgeInsets.only(
+              right: 40.0,
+            ),
+            child: Image(
+              width: 44.0,
+              height: 24.0,
+              image: AssetImage("assets/images/logo.png"),
+            ),
           ),
+        ),
+        leading: IconButton(
+          icon: SvgPicture.asset("assets/svg-icons/drawer-icon.svg"),
+          onPressed: () => _scaffoldKey.currentState!.openDrawer(),
         ),
         elevation: 0.0,
         bottomOpacity: 0.0,
@@ -53,7 +63,7 @@ class _HomeState extends State<Home> {
           statusBarColor: AppColorConstants.primaryColor,
         ),
       ),
-      // drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(
