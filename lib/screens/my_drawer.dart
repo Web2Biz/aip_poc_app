@@ -10,8 +10,25 @@ class MyDrawer extends StatefulWidget {
   State<MyDrawer> createState() => _MyDrawerState();
 }
 
-class _MyDrawerState extends State<MyDrawer> {
-  bool _isSelected = true;
+class _MyDrawerState extends State<MyDrawer>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _rotationAnimation;
+
+  bool _isSelected = false;
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    // The icon is animated from 0 degrees to a
+    // half turn = 180 degrees
+    _rotationAnimation = Tween<double>(begin: 0, end: 0.5).animate(_controller);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -199,6 +216,11 @@ class _MyDrawerState extends State<MyDrawer> {
           setState(() {
             _isSelected = !_isSelected;
           });
+          if (_isSelected) {
+            _controller.forward();
+          } else {
+            _controller.reverse();
+          }
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
@@ -223,9 +245,10 @@ class _MyDrawerState extends State<MyDrawer> {
             )
           ],
         ),
-        trailing: SvgPicture.asset(_isSelected
-            ? "assets/svg-icons/up-arrow.svg"
-            : "assets/svg-icons/down-arrow.svg"),
+        trailing: RotationTransition(
+          turns: _rotationAnimation,
+          child: SvgPicture.asset("assets/svg-icons/up-arrow.svg"),
+        ),
       ),
     );
   }
@@ -320,12 +343,12 @@ class _MyDrawerState extends State<MyDrawer> {
                 SizedBox(
                   child: Row(
                     children: [
-                      SvgPicture.asset("assets/svg-icons/mail-box.svg"),
+                      SvgPicture.asset("assets/svg-icons/mail-box-open.svg"),
                       const SizedBox(
                         width: 8.0,
                       ),
                       Text(
-                        "Mailbox",
+                        "Messages",
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: AppFontConstants.nunitaSans,

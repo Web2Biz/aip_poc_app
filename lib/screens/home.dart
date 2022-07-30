@@ -40,19 +40,20 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: AppColorConstants.primaryColor,
         // automaticallyImplyLeading: false,
-        title: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: const Padding(
-            padding: EdgeInsets.only(
-              right: 40.0,
-            ),
-            child: Image(
-              width: 44.0,
-              height: 24.0,
-              image: AssetImage("assets/images/logo.png"),
-            ),
-          ),
-        ),
+        title: const Text("Drawer Demo"),
+        // title: SizedBox(
+        //   width: MediaQuery.of(context).size.width,
+        //   child: const Padding(
+        //     padding: EdgeInsets.only(
+        //       right: 40.0,
+        //     ),
+        //     child: Image(
+        //       width: 44.0,
+        //       height: 24.0,
+        //       image: AssetImage("assets/images/logo.png"),
+        //     ),
+        //   ),
+        // ),
         leading: IconButton(
           icon: SvgPicture.asset("assets/svg-icons/drawer-icon.svg"),
           onPressed: () => _scaffoldKey.currentState!.openDrawer(),
@@ -70,35 +71,36 @@ class _HomeState extends State<Home> {
             vertical: 0.0,
             horizontal: 16.0,
           ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  _buildSearchTextField(),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  _buildThreeRowButton(),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  Expanded(child: _buildSFDataGrid(constraints)),
-                  SizedBox(
-                    height: datapagerHeight,
-                    child: SfDataPager(
-                      delegate: employeeDataSource,
-                      pageCount:
-                          (employees.length / _rowsPerPage).ceilToDouble(),
-                      direction: Axis.horizontal,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+          child: const Center(child: Text("Drawer Example")),
+          // child: LayoutBuilder(
+          //   builder: (context, constraints) {
+          //     return Column(
+          //       children: [
+          //         const SizedBox(
+          //           height: 16.0,
+          //         ),
+          //         _buildSearchTextField(),
+          //         const SizedBox(
+          //           height: 12.0,
+          //         ),
+          //         _buildThreeRowButton(),
+          //         const SizedBox(
+          //           height: 12.0,
+          //         ),
+          //         Expanded(child: _buildSFDataGrid(constraints)),
+          //         SizedBox(
+          //           height: datapagerHeight,
+          //           child: SfDataPager(
+          //             delegate: employeeDataSource,
+          //             pageCount:
+          //                 (employees.length / _rowsPerPage).ceilToDouble(),
+          //             direction: Axis.horizontal,
+          //           ),
+          //         ),
+          //       ],
+          //     );
+          //   },
+          // ),
         ),
       ),
     );

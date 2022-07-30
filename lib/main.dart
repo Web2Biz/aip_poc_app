@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:aip_poc/config/app_color_constants.dart';
 import 'package:aip_poc/screens/authentication/login.dart';
+import 'package:aip_poc/screens/home.dart';
 import 'package:aip_poc/screens/utils/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _splashScreenOff();
+    // _splashScreenOff();
   }
 
   @override
@@ -51,19 +52,19 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return const Scaffold(
       body: SafeArea(
-        child: SplashScreen(),
+        child: Home(),
       ),
     );
   }
 
   // Splash Screen Off After 2 seconds
   _splashScreenOff() {
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Login(),
-        ),
-      );
-    });
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   Navigator.of(context).pushReplacement(
+    //     MaterialPageRoute(
+    //       builder: (BuildContext context) => const Login(),
+    //     ),
+    //   );
+    // });
   }
 }
